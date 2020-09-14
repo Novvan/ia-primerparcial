@@ -15,7 +15,7 @@ public class Patroller : MonoBehaviour
     [SerializeField] private float _turnSmooth = 0.1f;
     [SerializeField] private List<Transform> _path;
     [SerializeField] private GameObject _bullet;
-    //[SerializeField] private Transform _bulletPoint;
+    [SerializeField] private Transform _bulletPoint;
     private Random _rnd = new Random();
     private bool _rltResult;
     private int _nextWaypoint;
@@ -103,18 +103,18 @@ public class Patroller : MonoBehaviour
     {
         _currentState = _playerDetection() ? State.action : State.idle;
         
-        // if (_rltResult)
-        // {
-        //     //Debug.Log("Pursuit");
-        //     _pursuit();
-        // }
-        // else
-        // {
-        //     //Debug.Log("Shoot");
-        //     _shoot();
-        // }
+        if (_rltResult)
+        {
+            //Debug.Log("Pursuit");
+            _pursuit();
+        }
+        else
+        {
+            //Debug.Log("Shoot");
+            _shoot();
+        }
         
-        _pursuit();
+        //_pursuit();
         //Patroller Settings
         _timeSpent = 0;
         _animator.SetBool("isRunning", true);
@@ -122,13 +122,13 @@ public class Patroller : MonoBehaviour
         _animator.SetBool("isIdle", false);
     }
 
-    // private void _shoot()
-    // {
-    //     var bul = Instantiate(_bullet, transform);
-    //     Debug.Log("instance created: " + bul);
-    //     var dir = _playerTransform.position - transform.position;
-    //     bul.GetComponent<Bullet>().BulletShot(dir);
-    // }
+    private void _shoot()
+    {
+        var bul = Instantiate(_bullet, transform);
+        //Debug.Log("instance created: " + bul);
+        var dir = _playerTransform.position - transform.position;
+        bul.GetComponent<Bullet>().BulletShot(dir);
+    }
 
     private void _pursuit()
     {
